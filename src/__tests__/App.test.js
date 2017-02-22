@@ -1,11 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../components/App/App';
+import Tagger from '../components/Tagger/Tagger'
 
-it('renders without crashing', () => {
-  const tags = [
-      "Санкт-Петербург", "Москва", "Новосибирск"
-  ];
-  const div = document.createElement('div');
-  ReactDOM.render(<App data={tags}/>, div);
+import expect from 'expect';
+import expectJSX from 'expect-jsx';
+
+expect.extend(expectJSX);
+
+describe('expect', () => {
+    it('works', () => {
+        const tags = [
+            "Санкт-Петербург", "Москва", "Новосибирск"
+        ];
+
+        let component = <App tags={tags} />;
+        console.log(component);
+        expect(<App tags={tags} />).toIncludeJSX(<App />);
+        // ok
+    });
 });

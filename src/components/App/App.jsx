@@ -3,9 +3,6 @@ import React  from 'react';
 import TagContainer from '../TagContainer/TagContainer';
 
 function template() {
-    const data = [
-      "Санкт-Петербург", "Москва", "Новосибирск"
-    ];
     return (
         <div className="App">
             <div className="App-header">
@@ -15,7 +12,8 @@ function template() {
             <p className="App-intro">
                 To get started, edit <code>src/App.js</code> and save to reload.
             </p>
-            <TagContainer data={data}/>
+            <TagContainer tags={[]}/>
+            <TagContainer />
         </div>
     );
 }

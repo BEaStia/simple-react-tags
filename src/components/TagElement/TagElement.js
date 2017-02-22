@@ -1,16 +1,20 @@
 import React from 'react';
 import './TagElement.css';
-const TagElement = React.createClass({
-    propTypes: {
-        data: React.PropTypes.string.isRequired
-    },
+export default class TagElement extends React.Component {
+    constructor(props) {
+        super(props);
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onClick() {
+        console.log("click!");
+    }
+
     render() {
         return (
-            <span className="TagElement">
-                {this.props.data}
+            <span className="TagElement" onClick={this.onClick}>
+                {this.props.value}
             </span>
         );
     }
-});
-
-export default TagElement;
+}
