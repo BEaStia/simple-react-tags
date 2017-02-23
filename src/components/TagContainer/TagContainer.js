@@ -24,7 +24,12 @@ export default class TagContainer extends React.Component {
 
         let counter = (state = tags, action) => {
             if (action.type === 'ADD') {
-                state.push(action.value);
+                let filteredTags = splitTags(action.value).filter(el=>{
+                    return el.length > 0;
+                });
+                for (let el of filteredTags) {
+                    state.push(el);
+                }
             } else if (action.type === 'DELETE') {
                 state.remove(action.value);
             }
