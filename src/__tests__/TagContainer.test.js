@@ -82,7 +82,7 @@ describe('<TagContainer />', () => {
         expect(wrapper.find(Tagger).node.state.value).to.equal(text);
         wrapper.find(Tagger).simulate('keyDown', { keyCode: 13 });
         expect(wrapper.find(TagElement)).to.have.length(2);
-    })
+    });
 
     it('should delete TagElements', () => {
         const tags = [
@@ -92,5 +92,14 @@ describe('<TagContainer />', () => {
         let wrapper = mount(<TagContainer tags={tags}/>);
         wrapper.find(TagElement).first().simulate('click');
         expect(wrapper.find(TagElement)).to.have.length(2);
+    });
+
+    it('should generate hidden fields', ()=> {
+        const tags = [
+            "Санкт-Петербург", "Москва", "Новосибирск"
+        ];
+
+        let wrapper = mount(<TagContainer tags={tags} name="city"/>);
+        expect(wrapper.find(".hidden")).to.have.length(3);
     });
 });

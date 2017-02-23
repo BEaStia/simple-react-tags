@@ -14,6 +14,7 @@ export default class TagElement extends React.Component {
         return (
             <span className="TagElement" onClick={this.onClick}>
                 {this.props.value}
+                <input type="hidden" className="hidden" name={this.props.name} value={this.props.value} />
             </span>
         );
     }

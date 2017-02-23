@@ -50,7 +50,7 @@ export default class TagContainer extends React.Component {
     render() {
         const data = this.state.store.getState();
         let templates = [...data].map((el, index)=> {
-            return <TagElement value={el} key={index} store={this.state.store}/>
+            return <TagElement value={el} key={index} store={this.state.store} name={this.props.name+"[]"}/>
         });
         return (
             <div className="TagContainer">

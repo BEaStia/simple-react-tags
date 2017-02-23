@@ -12,7 +12,7 @@ function template(self) {
             <p className="App-intro">
                 To get started, edit <code>src/App.js</code> and save to reload.
             </p>
-            <TagContainer tags={self.props.tags || []}/>
+            <TagContainer tags={self.props.tags || []} name="cities"/>
         </div>
     );
 }
