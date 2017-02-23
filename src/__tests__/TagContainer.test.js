@@ -1,5 +1,4 @@
 import React from 'react';
-import App from '../components/App/App';
 import Tagger from '../components/Tagger/Tagger'
 import TagElement from '../components/TagElement/TagElement'
 import TagContainer from '../components/TagContainer/TagContainer'
@@ -63,5 +62,35 @@ describe('<TagContainer />', () => {
     it('should use many delimeters', () => {
         let wrapper = mount(<TagContainer tags="a$b$c,d:e" delimeters="$,:"/>);
         expect(wrapper.find(TagElement)).to.have.length(5);
+    });
+
+    it('should be typed new tag', ()=> {
+        let wrapper = mount(<TagContainer tags="a:b:c,d,e,f" delimeters={[':']}/>);
+        wrapper.find(Tagger).first().simulate('click');
+        const text = 'Hello';
+        wrapper.find(Tagger).simulate('change', {target: { value: text }});
+        expect(wrapper.find(Tagger).node.state.value).to.equal(text);
+        wrapper.find(Tagger).simulate('keyDown', { keyCode: 13 });
+        expect(wrapper.find(TagElement)).to.have.length(4);
+    });
+
+    it('should create array of tags', ()=>{
+        let wrapper = mount(<TagContainer/>);
+        wrapper.find(Tagger).first().simulate('click');
+        const text = 'Hello, Joe';
+        wrapper.find(Tagger).simulate('change', {target: { value: text }});
+        expect(wrapper.find(Tagger).node.state.value).to.equal(text);
+        wrapper.find(Tagger).simulate('keyDown', { keyCode: 13 });
+        expect(wrapper.find(TagElement)).to.have.length(2);
+    })
+
+    it('should delete TagElements', () => {
+        const tags = [
+            "Санкт-Петербург", "Москва", "Новосибирск"
+        ];
+
+        let wrapper = mount(<TagContainer tags={tags}/>);
+        wrapper.find(TagElement).first().simulate('click');
+        expect(wrapper.find(TagElement)).to.have.length(2);
     });
 });
