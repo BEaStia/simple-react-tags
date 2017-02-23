@@ -9,7 +9,6 @@ export default class TagContainer extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(props);
         let delimetersRegex = this.decomposeDelimiter(props);
 
         const splitTags = (tagsContainer)=>{
@@ -20,18 +19,18 @@ export default class TagContainer extends React.Component {
             }
         };
 
-        let tags = props.tags === undefined ? [] : splitTags(props.tags);
+        let tags = props.tags === undefined ? new Set() : new Set(splitTags(props.tags));
 
         let counter = (state = tags, action) => {
             if (action.type === 'ADD') {
-                let filteredTags = splitTags(action.value).filter(el=>{
+                let filteredTags = splitTags(action.value).filter((el)=>{
                     return el.length > 0;
                 });
                 for (let el of filteredTags) {
-                    state.push(el);
+                    state.add(el);
                 }
             } else if (action.type === 'DELETE') {
-                state.remove(action.value);
+                state.delete(action.value);
             }
             return state;
         };
@@ -50,8 +49,8 @@ export default class TagContainer extends React.Component {
 
     render() {
         const data = this.state.store.getState();
-        let templates = data.map((el, index)=> {
-            return <TagElement value={el} key={index}/>
+        let templates = [...data].map((el, index)=> {
+            return <TagElement value={el} key={index} store={this.state.store}/>
         });
         return (
             <div className="TagContainer">

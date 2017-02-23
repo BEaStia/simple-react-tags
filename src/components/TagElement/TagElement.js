@@ -7,7 +7,7 @@ export default class TagElement extends React.Component {
     }
 
     onClick() {
-        console.log("click!");
+        this.props.store.dispatch({type: 'DELETE', value: this.props.value});
     }
 
     render() {

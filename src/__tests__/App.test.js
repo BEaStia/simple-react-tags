@@ -2,21 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../components/App/App';
 import Tagger from '../components/Tagger/Tagger'
+import TagContainer from '../components/TagContainer/TagContainer'
+import { mount, shallow } from 'enzyme';
+import {expect} from 'chai';
 
-import expect from 'expect';
-import expectJSX from 'expect-jsx';
-
-expect.extend(expectJSX);
-
-describe('expect', () => {
+describe('<App />', () => {
     it('works', () => {
         const tags = [
             "Санкт-Петербург", "Москва", "Новосибирск"
         ];
 
-        let component = <App tags={tags} />;
-        console.log(component);
-        expect(<App tags={tags} />).toIncludeJSX(<App />);
-        // ok
+        let wrapper = mount(<App tags={tags} />);
+        expect(wrapper.find(TagContainer)).to.have.length(1);
+        console.log(wrapper.state());
+        console.log(wrapper.find(<TagContainer />));
     });
 });
